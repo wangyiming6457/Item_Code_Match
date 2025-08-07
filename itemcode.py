@@ -7,6 +7,24 @@ from fuzzywuzzy import fuzz
 from io import BytesIO
 from copy import copy
 
+# --- AUTH ---
+def login():
+    st.title("🔒 ITEFM Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "ademco" and password == "yimingiscool":
+            st.session_state.logged_in = True
+        else:
+            st.error("Invalid username or password.")
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    login()
+    st.stop()
+
 # --- Utilities ---
 def clean_model(text):
     if not isinstance(text, str):
@@ -138,3 +156,4 @@ if item_file and cost_file:
             file_name="CostSheet_ItemCode_Matched.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
+
